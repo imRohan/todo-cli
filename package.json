@@ -12,7 +12,9 @@
   "scripts": {
     "dev": "tsc && node dist/main.js",
     "linter": "tslint -c tslint.json -p tsconfig.json",
-    "tests": "tsc && concurrently -k 'node dist/main.js' 'jest'",
+    "fix-linting": "tslint --fix -p tsconfig.json",
+    "tests": "jest --silent --verbose --coverage",
+    "validate": "jest && tslint -c tslint.json -p tsconfig.json",
     "build": "tsc"
   },
   "jest": {
