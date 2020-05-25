@@ -15,7 +15,8 @@
     "fix-linting": "tslint --fix -p tsconfig.json",
     "tests": "jest --silent --verbose --coverage",
     "validate": "jest && tslint -c tslint.json -p tsconfig.json",
-    "build": "tsc"
+    "build": "tsc",
+    "app": "node dist/main.js"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -36,6 +37,8 @@
     "typescript": "^3.2.4"
   },
   "dependencies": {
-    "dotenv": "^6.1.0"
+    "caporal": "^1.4.0",
+    "dotenv": "^6.1.0",
+    "uuid": "^8.1.0"
   }
 }
