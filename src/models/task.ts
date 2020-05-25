@@ -60,6 +60,15 @@ class Task {
     }
   }
 
+  public static async start({ id}): Promise<void> {
+    try {
+      const _task = await Task.find(id)
+      _task.status = ITaskStatus.inProgress
+      await _task.store()
+    } catch (error) {
+      throw new Error(`Could not start task: ${error.message}`)
+    }
+  }
   public static async complete({ id}): Promise<void> {
     try {
       const _task = await Task.find(id)

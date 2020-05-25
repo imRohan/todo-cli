@@ -7,8 +7,10 @@ const prog = require("caporal");
 const TasksController = require("./controllers/tasks");
 prog.version('1.0.0')
     .command('list', 'print all tasks and their status')
+    .option('--all', 'view all tasks')
     .action((args, options, logger) => {
-    TasksController.listAll(logger);
+    const { all } = options;
+    TasksController.listAll(logger, all);
 })
     .command('add', 'add a task')
     .argument('<Id>', 'ID of task')
@@ -22,6 +24,11 @@ prog.version('1.0.0')
     .argument('<status>', 'status of task', /^pending|blocked|complete|notDoing$/)
     .action((args, options, logger) => {
     TasksController.updateStatus(args, logger);
+})
+    .command('start', 'start work on a task')
+    .argument('<id>', 'ID of task')
+    .action((args, options, logger) => {
+    TasksController.startTask(args, logger);
 })
     .command('complete', 'complete a task')
     .argument('<id>', 'ID of task')

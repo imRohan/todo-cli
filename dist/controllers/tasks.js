@@ -12,10 +12,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const table = require("cli-table");
 // External Files
 const Task = require("../models/task");
+// Interfaces
+const task_1 = require("../interfaces/task");
 class TasksController {
-    static listAll(logger) {
+    static listAllInFlight(logger) {
+        TasksController.listAll(logger, false);
+    }
+    static listAll(logger, showAll = true) {
         return __awaiter(this, void 0, void 0, function* () {
-            const _tasks = yield Task.listAllSanitized();
+            let _tasks = yield Task.listAllSanitized();
+            if (!showAll) {
+                _tasks = _tasks.filter((task) => {
+                    const { status } = task;
+                    return status === task_1.ITaskStatus.pending ||
+                        status === task_1.ITaskStatus.blocked ||
+                        status === task_1.ITaskStatus.inProgress;
+                });
+            }
             const _table = new table({
                 head: ['ID', 'Name', 'Description', 'Status', 'Time Spent (min)'],
             });
@@ -29,19 +42,25 @@ class TasksController {
         return __awaiter(this, void 0, void 0, function* () {
             const _newTask = new Task(args);
             yield _newTask.store();
-            TasksController.listAll(logger);
+            TasksController.listAllInFlight(logger);
         });
     }
     static updateStatus(args, logger) {
         return __awaiter(this, void 0, void 0, function* () {
             yield Task.updateStatus(args);
-            TasksController.listAll(logger);
+            TasksController.listAllInFlight(logger);
+        });
+    }
+    static startTask(args, logger) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield Task.start(args);
+            TasksController.listAllInFlight(logger);
         });
     }
     static completeTask(args, logger) {
         return __awaiter(this, void 0, void 0, function* () {
             yield Task.complete(args);
-            TasksController.listAll(logger);
+            TasksController.listAllInFlight(logger);
         });
     }
 }

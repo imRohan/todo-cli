@@ -3,6 +3,7 @@ export enum ITaskStatus {
   blocked = 'BLOCKED',
   complete = 'COMPLETE',
   notDoing = 'NOT_DOING',
+  inProgress = 'IN_PROGRESS',
 }
 
 export interface ITask {

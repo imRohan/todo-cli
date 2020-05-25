@@ -5,6 +5,9 @@
   "license": "MIT",
   "description": "A Command Line ToDo App for Devs",
   "main": "dist/main.js",
+  "bin": {
+    "todo-cli": "dist/main.js"
+  },
   "repository": {
     "url": "https://github.com/imRohan/cli-todo",
     "type": "git"
