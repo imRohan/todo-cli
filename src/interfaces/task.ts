@@ -2,7 +2,7 @@ export enum ITaskStatus {
   pending = 'PENDING',
   blocked = 'BLOCKED',
   complete = 'COMPLETE',
-  notDoing = 'NOT_DOING'
+  notDoing = 'NOT_DOING',
 }
 
 export interface ITask {
@@ -13,4 +13,12 @@ export interface ITask {
   updatedAt: any,
   status: ITaskStatus,
   uuid: string,
+}
+
+export interface ITaskSanitized {
+  id: string,
+  title: string,
+  description: string,
+  status: string,
+  minutesSpent: number,
 }
